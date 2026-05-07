@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RAG Vector Studio</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+    <section class="hero">
+        <div>
+            <p class="eyebrow">Spring AI · DashScope · SimpleVectorStore</p>
+            <h1>RAG Vector Studio</h1>
+            <p class="subtle">Upload text files, split them into overlapping chunks, embed them with DashScope, and persist the local SimpleVectorStore across restarts.</p>
+        </div>
+        <div class="status">
+            <span class="dot"></span>
+            <span id="statusText">Ready</span>
+        </div>
+    </section>
+
+    <section class="workspace">
+        <div class="panel upload-panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Upload</h2>
+                    <p>Use UTF-8 text files such as .txt, .md, .csv, .json, or .log.</p>
+                </div>
+            </div>
+
+            <form id="uploadForm" class="dropzone">
+                <input id="fileInput" name="file" type="file" hidden>
+                <button class="file-button" type="button" id="pickFileButton">
+                    <span class="icon">+</span>
+                    <span>Choose File</span>
+                </button>
+                <div>
+                    <strong id="fileName">Drop a file here</strong>
+                    <span id="fileHint">or click to browse</span>
+                </div>
+            </form>
+
+            <button class="primary" id="uploadButton" type="button" disabled>Upload & Vectorize</button>
+            <div id="uploadResult" class="result-line"></div>
+        </div>
+
+        <div class="panel search-panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Search</h2>
+                    <p>Run similarity search against the embedded file chunks.</p>
+                </div>
+                <select id="topK" aria-label="Result count">
+                    <option value="3">Top 3</option>
+                    <option value="5">Top 5</option>
+                    <option value="8">Top 8</option>
+                </select>
+            </div>
+
+            <form id="searchForm" class="search-box">
+                <input id="queryInput" type="search" placeholder="Search your uploaded knowledge..." autocomplete="off">
+                <button class="primary" type="submit">Search</button>
+            </form>
+
+            <div id="searchResults" class="results empty">
+                <p>Search results will appear here.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel github-panel">
+        <div class="panel-head">
+            <div>
+                <h2>Import GitHub Repository</h2>
+                <p>Embed supported text and code files from a public or private GitHub repository.</p>
+            </div>
+        </div>
+        <form id="githubForm" class="github-form">
+            <input id="githubRepoInput" type="url" placeholder="https://github.com/owner/repo" autocomplete="off" required>
+            <input id="githubRefInput" type="text" placeholder="Branch or ref, default branch" autocomplete="off">
+            <input id="githubTokenInput" type="password" placeholder="GitHub token, optional" autocomplete="off">
+            <button class="primary" type="submit">Import Repository</button>
+        </form>
+        <div id="githubResult" class="result-line"></div>
+    </section>
+
+    <section class="panel files-panel">
+        <div class="panel-head">
+            <div>
+                <h2>Embedded Files</h2>
+                <p>Files and repositories currently recorded as embedded in the local vector store.</p>
+            </div>
+            <button class="secondary" id="refreshFilesButton" type="button">Refresh</button>
+        </div>
+        <div id="embeddedFiles" class="file-list empty">
+            <p>No embedded files yet.</p>
+        </div>
+    </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

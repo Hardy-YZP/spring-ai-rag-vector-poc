@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  ai:
+    dashscope:
+      api-key:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      embedding:
+        options:
+          model: text-embedding-v3
+      chat:
+        options:
+          model: qwen3-max
+          temperature: 0.7
+          max-tokens: 2048
+
+rag:
+  vector-store:
+    file: data/simple-vector-store.json
+    auto-save-on-add: true
+  document:
+    chunk-size: 900
+    chunk-overlap: 120
+    manifest-file: data/embedded-files.tsv
+    github-max-files: 300
+    github-max-file-bytes: 1000000
